@@ -1,7 +1,7 @@
 class ApiURL{
 
   static getURL(){
-    String url='https://hietccsu.org/Api/';
+    String url='https://hiet.org/Api/';
     return url;
   }
 }

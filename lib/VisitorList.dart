@@ -1,10 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
+import 'package:photo_check/Api/ApiURL.dart';
+import 'package:photo_check/EditForm.dart';
 import 'dart:async';
-import 'package:flutter/foundation.dart';
+
+import 'package:photo_check/VIewFormDetails.dart';
+// import 'package:flutter/foundation.dart';
 
 class VisitorsListScreen extends StatefulWidget {
   const VisitorsListScreen({super.key});
@@ -16,17 +20,17 @@ class VisitorsListScreen extends StatefulWidget {
 class _VisitorsListScreenState extends State<VisitorsListScreen> {
   List visitors = [];
   bool isLoading = true;
-
+  String URL = ApiURL.getURL();
   @override
   void initState() {
     super.initState();
-    HttpOverrides.global = MyHttpOverrides(); // Bypass SSL
+    // HttpOverrides.global = MyHttpOverrides(); // Bypass SSL
     fetchVisitors();
   }
 
   Future<void> fetchVisitors() async {
     try {
-      final response = await http.get(Uri.parse("https://hietccsu.org/Api/visitorList.php"));
+      final response = await http.get(Uri.parse("${URL}visitorList.php"));
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         if (data['status']) {
@@ -120,7 +124,6 @@ class _VisitorsListScreenState extends State<VisitorsListScreen> {
                           elevation: 4,
                           margin: const EdgeInsets.symmetric(vertical: 6),
                           child: ListTile(
-
                             leading: const Icon(Icons.person, color: Colors.indigo),
                             title: Text(visitor['name'],
                                 style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -132,12 +135,46 @@ class _VisitorsListScreenState extends State<VisitorsListScreen> {
                                 Text("Date: ${visitor['current_date']}"),
                               ],
                             ),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.edit, color: Color(0xFF009688)),
-                              onPressed: () {
-                                // Handle edit action here
-
-                              },
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Color(0xFF0057B8), width: 2),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.edit, color: Color(0xFF009688)),
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context)=> Editform(
+                                            visitor: visitor,
+                                          ))
+                                      );
+                                      // Navigator.push(context, route)
+                                      // Handle edit action here
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Color(0xFF009688), width: 2),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.remove_red_eye, color: Color(0xFF0057B8)),
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                      MaterialPageRoute(builder: (context)=>Viewformdetails(
+                                        visitor: visitor,
+                                      ))
+                                      );
+                                      // Handle view action here
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         );
@@ -152,12 +189,13 @@ class _VisitorsListScreenState extends State<VisitorsListScreen> {
       ),
     );
   }
+
 }
 
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-  }
-}
+// class MyHttpOverrides extends HttpOverrides {
+//   @override
+//   HttpClient createHttpClient(SecurityContext? context) {
+//     return super.createHttpClient(context)
+//       ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+//   }
+// }

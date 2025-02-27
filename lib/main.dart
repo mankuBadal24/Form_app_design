@@ -1,25 +1,25 @@
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:photo_check/Api/ApiURL.dart';
 // import 'package:photo_check/RegisterDetail.dart';
 import 'package:http/http.dart' as http;
-import 'package:photo_check/SIgnUpScreen.dart';
+// import 'package:photo_check/SIgnUpScreen.dart';
 import 'package:photo_check/dashboard.dart';
 
 void main() {
-  HttpOverrides.global = MyHttpOverrides(); // Bypass SSL verification
+  // HttpOverrides.global = MyHttpOverrides(); // Bypass SSL verification
   runApp(MyApp());
 }
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-  }
-}
+// class MyHttpOverrides extends HttpOverrides {
+//   @override
+//   HttpClient createHttpClient(SecurityContext? context) {
+//     return super.createHttpClient(context)
+//       ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+//   }
+// }
 
 class MyApp extends StatelessWidget {
   @override
@@ -61,7 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       print(response.body);
       if (response.statusCode == 200) {
+
         final data = json.decode(response.body);
+        // print(data);
         if (data["status"] == true) {
           print("Login Success: ${data['data']}");
 
@@ -248,23 +250,23 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             },
                           ),
-                          const SizedBox(height: 10),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpScreen()));
-                            },
-                            child: const Text.rich(
-                              TextSpan(
-                                text: "Don't have an account? ",
-                                children: [
-                                  TextSpan(
-                                    text: "Register Now",
-                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          // const SizedBox(height: 10),
+                          // TextButton(
+                          //   onPressed: () {
+                          //     Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpScreen()));
+                          //   },
+                          //   child: const Text.rich(
+                          //     TextSpan(
+                          //       text: "Don't have an account? ",
+                          //       children: [
+                          //         TextSpan(
+                          //           text: "Register Now",
+                          //           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'dart:convert';
 
+import 'package:photo_check/VisitorList.dart';
+
 class VisitorEntryApp extends StatelessWidget {
   const VisitorEntryApp({super.key});
 
@@ -13,9 +15,9 @@ class VisitorEntryApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: const Color(0xFF0057B8),
-        colorScheme: ColorScheme.light(
-          primary: const Color(0xFF0057B8),
-          secondary: const Color(0xFFF5F8F8),
+        colorScheme: const ColorScheme.light(
+          primary: Color(0xFF0057B8),
+          secondary: Color(0xFFF5F8F8),
         ),
       ),
       home: const VisitorEntryForm(),
@@ -109,10 +111,7 @@ class _VisitorEntryFormState extends State<VisitorEntryForm> {
         if (response.statusCode == 200) {
           final data = json.decode(response.body);
           if (data["status"]) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(data["message"]),
-                  backgroundColor: Colors.green),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> VisitorsListScreen()));
           } else {
             _showMessage("Failed To Add Visitor");
           }
@@ -216,7 +215,7 @@ class _VisitorEntryFormState extends State<VisitorEntryForm> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(18),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [Color(0xFF0057B8), Color(0xFF009688)],
                       ),
                     ),
@@ -266,7 +265,7 @@ class _VisitorEntryFormState extends State<VisitorEntryForm> {
                                 Column(
                                   children: [
                                     RadioListTile(
-                                      title: const Text("Admission"),
+                                      title: const Text("Admission",style: TextStyle(fontWeight: FontWeight.bold),),
                                       value: "Admission",
                                       groupValue: selectedPurpose,
                                       onChanged: (value) {
@@ -277,7 +276,7 @@ class _VisitorEntryFormState extends State<VisitorEntryForm> {
                                       activeColor: const Color(0xFF009688),
                                     ),
                                     RadioListTile(
-                                      title: const Text("Other"),
+                                      title: const Text("Other", style: TextStyle(fontWeight: FontWeight.bold),),
                                       value: "Other",
                                       groupValue: selectedPurpose,
                                       onChanged: (value) {

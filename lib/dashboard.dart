@@ -155,7 +155,7 @@ class DashboardScreen extends StatelessWidget {
           child: Center(
             child: Lottie.asset(
               'assets/animations/Animation_lottie.json',
-              width: 200,
+              width: 150,
               fit: BoxFit.contain,
             ),
           ),
