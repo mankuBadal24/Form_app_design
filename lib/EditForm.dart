@@ -76,7 +76,7 @@ class _EditformState extends State<Editform> {
                 Image.asset('assets/images/tick.png', height: 80), // Custom warning image
                 const SizedBox(height: 10),
                 const Text(
-                  "Alert",
+                  "Done",
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
                 ),
                 const SizedBox(height: 10),
@@ -104,7 +104,11 @@ class _EditformState extends State<Editform> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const VisitorsListScreen()));
+                        Navigator.of(context).pop(); // Close the dialog
+                        Navigator.of(context).pop(); // Pop the Edit Screen
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => VisitorsListScreen()),
+                        );
                       },
                       child: const Text(
                         "OK",

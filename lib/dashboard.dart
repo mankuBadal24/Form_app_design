@@ -91,6 +91,21 @@ class DashboardScreen extends StatelessWidget {
           ),
         ),
       ),
+      // drawer:
+      // Drawer(
+      //   child: ListView(
+      //     padding: EdgeInsets.zero,
+      //     children: [
+      //       const DrawerHeader(
+      //         decoration: BoxDecoration(
+      //           gradient: LinearGradient(
+      //               colors:[Color(0xFF0057B8), Color(0xFF009688)]),
+      //         ),
+      //         child: Text(""),
+      //       )
+      //     ],
+      //   ),
+      // ),
     );
   }
 
@@ -144,6 +159,7 @@ class DashboardScreen extends StatelessWidget {
       builder: (context) {
         Future.delayed(const Duration(seconds: 2), () {
           Navigator.pop(context); // Close animation
+
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => nextPage),

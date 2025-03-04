@@ -9,7 +9,7 @@ class Viewformdetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false ,
         title: const Text(
           "Visitor Details",
           style: TextStyle(color: Colors.white),
