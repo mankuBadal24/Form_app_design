@@ -87,6 +87,15 @@ class _VisitorEntryFormState extends State<VisitorEntryForm> {
     }
   }
 
+  void _clearFields(){
+    nameCtrl.clear();
+    emailCtrl.clear();
+    contactCtrl.clear();
+    altercontactCtrl.clear();
+    conPersonCtrl.clear();
+    addressCtrl.clear();
+}
+
   Future<void> saveVisitor() async {
 
     if (_validateFields()== false) {
@@ -111,6 +120,7 @@ class _VisitorEntryFormState extends State<VisitorEntryForm> {
         if (response.statusCode == 200) {
           final data = json.decode(response.body);
           if (data["status"]) {
+            Navigator.of(context).pop();
             Navigator.push(context, MaterialPageRoute(builder: (context)=> VisitorsListScreen()));
           } else {
             _showMessage("Failed To Add Visitor");
@@ -121,6 +131,7 @@ class _VisitorEntryFormState extends State<VisitorEntryForm> {
       } catch (e) {
         _showMessage("Error : $e");
       }
+      _clearFields();
     }
   }
 
@@ -187,7 +198,7 @@ class _VisitorEntryFormState extends State<VisitorEntryForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Removes the back arrow
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text("Visitor Entry Form",style: TextStyle(color: Colors.white),),
         centerTitle: true,
         flexibleSpace: Container(

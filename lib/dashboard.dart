@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:photo_check/RegisterDetail.dart';
 import 'package:photo_check/VisitorList.dart';
+import 'package:photo_check/shared%20Prefrences/Sharedprefrences.dart';
+
+import 'LoginScreen.dart';
+
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -10,8 +14,11 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Removes the back arrow
-        title: const Text("Visitor Query Page ",style: TextStyle(color: Colors.white),),
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
+          "Visitor Query Page",
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -19,6 +26,58 @@ class DashboardScreen extends StatelessWidget {
               colors: [Color(0xFF0057B8), Color(0xFF009688)],
             ),
           ),
+        ),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF0057B8), Color(0xFF009688)],
+                ),
+              ),
+              child: const Column(
+                children: [
+                  const SizedBox(height: 20),
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.person, size: 50, color: Color(0xFF0057B8)),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Amar Nath",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                  const Text(
+                    "amar@gmail.com",
+                    style: TextStyle(fontSize: 14, color: Colors.white70),
+                  ),
+                ],
+              ),
+            ),
+
+            // Drawer Items with White Background
+            Expanded(
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.exit_to_app, color: Colors.red),
+                    title: const Text("Log Out"),
+                    onTap: () {
+                      UserSharedPreferences pref = UserSharedPreferences();
+                      pref.clearUserData();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginScreen()));
+                      // Handle Logout
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
       body: Container(
@@ -31,8 +90,8 @@ class DashboardScreen extends StatelessWidget {
         ),
         child: Center(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.8, // Reduced to 70% height
-            width: MediaQuery.of(context).size.width * 0.89, // 85% width for a balanced look
+            height: MediaQuery.of(context).size.height * 0.8,
+            width: MediaQuery.of(context).size.width * 0.89,
             child: Card(
               color: Colors.white,
               shape: RoundedRectangleBorder(
@@ -53,7 +112,7 @@ class DashboardScreen extends StatelessWidget {
                       child: Center(
                         child: Image.asset(
                           'assets/images/logo_hiet.jpeg',
-                          width: 250, // Slightly reduced for better fitting
+                          width: 250,
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -63,9 +122,9 @@ class DashboardScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start, // Center content inside card
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 15), // Reduced spacing
+                        const SizedBox(height: 15),
                         buildDashboardCard(
                           context,
                           "Visitor Entry Form",
@@ -91,23 +150,10 @@ class DashboardScreen extends StatelessWidget {
           ),
         ),
       ),
-      // drawer:
-      // Drawer(
-      //   child: ListView(
-      //     padding: EdgeInsets.zero,
-      //     children: [
-      //       const DrawerHeader(
-      //         decoration: BoxDecoration(
-      //           gradient: LinearGradient(
-      //               colors:[Color(0xFF0057B8), Color(0xFF009688)]),
-      //         ),
-      //         child: Text(""),
-      //       )
-      //     ],
-      //   ),
-      // ),
     );
   }
+
+
 
   Widget buildDashboardCard(
       BuildContext context, String title, String imagePath, VoidCallback onTap) {
@@ -159,7 +205,6 @@ class DashboardScreen extends StatelessWidget {
       builder: (context) {
         Future.delayed(const Duration(seconds: 2), () {
           Navigator.pop(context); // Close animation
-
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => nextPage),
