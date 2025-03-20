@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:lottie/lottie.dart';
 import 'package:photo_check/Api/ApiURL.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:photo_check/dashboard.dart';
 import 'package:photo_check/shared%20Prefrences/Sharedprefrences.dart';
@@ -26,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController passCtrl = TextEditingController();
   bool _obscurePassword = true;
+  // ignore: unused_field
   bool _isLoading = false;
   String URL = ApiURL.getURL();
   bool isLoginpage = true;
