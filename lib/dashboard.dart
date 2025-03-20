@@ -70,8 +70,11 @@ class DashboardScreen extends StatelessWidget {
                     onTap: () {
                       UserSharedPreferences pref = UserSharedPreferences();
                       pref.clearUserData();
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginScreen()));
-                      // Handle Logout
+                      // Navigate to LoginScreen and remove all previous routes
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                            (route) => false, // Removes all previous routes
+                      );
                     },
                   ),
                 ],
